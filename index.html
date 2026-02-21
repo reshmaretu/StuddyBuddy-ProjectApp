@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Palace · Quest Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="home.css">
+
+</head>
+<body>
+    <!-- STUDY BUDDY -->
+    <div class="buddy-container">
+        <div class="buddy-speech" id="buddySpeech">
+            <span id="buddyMessage">Ready for your next quest? 🎮</span>
+        </div>
+        <div class="buddy-avatar" id="buddyAvatar">🦊</div>
+    </div>
+
+    <!-- GHOST MODE MODAL -->
+    <div class="ghost-dimension" id="ghostDimension">
+        <div class="ghost-container">
+            <div class="ghost-task" id="ghostTask">Select a crystal</div>
+            <div class="ghost-timer" id="ghostTimer">25:00</div>
+            <div class="ghost-controls" style="display:flex; gap:15px; justify-content:center;">
+                <button class="timer-btn-large" id="ghostComplete">✨ COMPLETE</button>
+                <button class="timer-btn-large" id="ghostExit">⬅ EXIT</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- BRAIN RESET MODAL -->
+    <div class="brain-modal" id="brainResetModal">
+        <div class="meditation-chamber">
+            <h2 style="margin-bottom:20px; color:#ffd966;">🧠 BRAIN RESET</h2>
+            <div class="breathing-circle">
+                <span id="breathingPhase" style="color:white; font-size:1.5rem;">INHALE</span>
+            </div>
+            <div style="font-size:3rem; font-family:monospace; color:#ffd966; margin:20px 0;" id="meditationTimer">00:30</div>
+            <div style="display:flex; gap:15px; justify-content:center;">
+                <button class="timer-btn-large" id="startMeditationBtn">▶ START</button>
+                <button class="timer-btn-large" id="closeMeditationBtn">CLOSE</button>
+            </div>
+        </div>
+    </div>
+
+<!-- CONFIRMATION MODAL -->
+<div class="confirmation-modal" id="confirmationModal" style="display: none;">
+    <div class="confirmation-content" style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(10, 25, 22, 0.95);
+        backdrop-filter: blur(10px);
+        z-index: 20000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    ">
+        <div style="
+            background: #1a3330;
+            border-radius: 50px;
+            padding: 40px;
+            border: 3px solid #ffd966;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        ">
+            <h3 style="color: #ffd966; margin-bottom: 20px; font-size: 1.5rem;" id="confirmTitle">⚠️ Confirm Action</h3>
+            <p style="color: #e0f7f0; margin-bottom: 30px; font-size: 1.2rem;" id="confirmMessage">Are you sure?</p>
+            <div style="display: flex; gap: 15px; justify-content: center;">
+                <button class="confirm-yes" id="confirmYes" style="
+                    background: #3d6b63;
+                    border: none;
+                    color: white;
+                    padding: 12px 30px;
+                    border-radius: 40px;
+                    font-size: 1.1rem;
+                    font-weight: 600;
+                    cursor: pointer;
+                    border: 2px solid #6bb5a8;
+                ">✓ YES</button>
+                <button class="confirm-no" id="confirmNo" style="
+                    background: #2a4a45;
+                    border: none;
+                    color: #b0d9d0;
+                    padding: 12px 30px;
+                    border-radius: 40px;
+                    font-size: 1.1rem;
+                    font-weight: 600;
+                    cursor: pointer;
+                    border: 2px solid #3a605a;
+                ">✗ NO</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- BREAK MODAL -->
+<div class="break-modal" id="breakModal" style="display: none;">
+    <div class="break-content" style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(10, 25, 22, 0.95);
+        backdrop-filter: blur(10px);
+        z-index: 20000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    ">
+        <div style="
+            background: linear-gradient(145deg, #2a4a45, #1d3a35);
+            border-radius: 50px;
+            padding: 40px;
+            border: 3px solid #ffd966;
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+        ">
+            <div style="font-size: 4rem; margin-bottom: 20px;">☕</div>
+            <h3 style="color: #ffd966; margin-bottom: 15px; font-size: 2rem;">Break Time!</h3>
+            <p style="color: #e0f7f0; margin-bottom: 25px; font-size: 1.2rem;">You've completed a focus session. Ready for a 5-minute break?</p>
+            <button class="ready-break-btn" id="readyBreakBtn" style="
+                background: #ffd966;
+                border: none;
+                color: #1a3330;
+                padding: 15px 40px;
+                border-radius: 40px;
+                font-size: 1.2rem;
+                font-weight: 600;
+                cursor: pointer;
+                border: 2px solid #6bb5a8;
+            ">✓ READY FOR BREAK</button>
+        </div>
+    </div>
+</div>
+
+
+<!-- BREAK MODAL -->
+<div class="break-modal" id="breakModal" style="display: none;">
+    <div class="break-content" style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(10, 25, 22, 0.95);
+        backdrop-filter: blur(10px);
+        z-index: 20000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    ">
+        <div style="
+            background: linear-gradient(145deg, #2a4a45, #1d3a35);
+            border-radius: 50px;
+            padding: 40px;
+            border: 3px solid #ffd966;
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+        ">
+            <div style="font-size: 4rem; margin-bottom: 20px;">☕</div>
+            <h3 style="color: #ffd966; margin-bottom: 15px; font-size: 2rem;">Break Time!</h3>
+            <p style="color: #e0f7f0; margin-bottom: 25px; font-size: 1.2rem;">You've completed a focus session. Ready for a 5-minute break?</p>
+            <button class="ready-break-btn" id="readyBreakBtn" style="
+                background: #ffd966;
+                border: none;
+                color: #1a3330;
+                padding: 15px 40px;
+                border-radius: 40px;
+                font-size: 1.2rem;
+                font-weight: 600;
+                cursor: pointer;
+                border: 2px solid #6bb5a8;
+            ">✓ READY FOR BREAK</button>
+        </div>
+    </div>
+</div>
+
+
+    <!-- MAIN APP -->
+    <div class="app-container">
+        <!-- LEFT SIDEBAR -->
+        <div class="sidebar">
+            <div class="logo">
+                <h2>MEMORY PALACE</h2>
+                <span>quest store</span>
+            </div>
+
+            <div class="search-box">
+                <span>🔍</span>
+                <input type="text" placeholder="Search quests...">
+            </div>
+
+            <div class="nav-menu">
+                <div class="nav-item active">Popular</div>
+                <div class="nav-item">New Quests</div>
+                <div class="nav-item">Your Library</div>
+                <div class="nav-item">Statistics</div>
+                <div class="nav-item">Settings</div>
+            </div>
+
+            <div class="section-title">YOUR STATISTICS</div>
+            
+            <div class="stats-mini">
+                <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                    <span>Focus Score</span>
+                    <span style="color:#ffd966; font-weight:600;" id="focusScoreMini">850</span>
+                </div>
+                <div style="display:flex; justify-content:space-between;">
+                    <span>Relics</span>
+                    <span id="totalRelicsSidebar">0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <div class="greeting">
+                Good evening, NIKITIN <small>🎮</small>
+            </div>
+
+            <!-- FOCUS & TIMER ROW (SIDE BY SIDE SQUARES) -->
+            <div class="focus-timer-row">
+                <!-- TIMER SQUARE (LEFT) -->
+                <div class="timer-square">
+    <div class="timer-display-large" id="mainTimer">25:00</div>
+    <div class="timer-controls-large">
+        <button class="timer-btn-large" id="mainStartTimer">▶ START</button>
+        <button class="timer-btn-large" id="mainPauseTimer">⏸️ PAUSE</button>
+        <button class="timer-btn-large" id="mainResetTimer">↺ RESET</button>
+    </div>
+    <div class="session-counter">
+        Sessions: <span id="sessionCount">0</span>/4
+    </div>
+    <!-- ADD THIS DEBUG BUTTON -->
+    <button class="timer-btn-large" id="debugTimerBtn" style="margin-top: 10px; background: #8b5a5a;">🐛 DEBUG (10s)</button>
+</div>
+
+                <!-- FOCUS SCORE SQUARE (RIGHT) -->
+                <div class="focus-score-square">
+                    <div class="focus-score-circle" id="focusScoreCircle">
+                        <span class="focus-score-number" id="focusScoreDisplay">850</span>
+                    </div>
+                    <div class="focus-score-info">
+                        <h3>Focus Score</h3>
+                        <p id="focusLevelText">Elite · Top 5%</p>
+                    </div>
+                    <div class="focus-score-badge" id="focusBadge">🔥 8 streak</div>
+                </div>
+            </div>
+
+            <!-- HERO SECTION -->
+            <div class="hero-section">
+                <div class="hero-content">
+                    <div class="hero-title">Crystal Garden</div>
+                    <div class="hero-description">
+                        Your active quests await. Each crystal contains a mission waiting to be completed.
+                        <br><span class="reviews" id="activeQuestCount">+4 active quests</span>
+                    </div>
+                </div>
+                <div class="hero-image">🔮</div>
+            </div>
+
+            <!-- SPARKS FEED (MOTIVATION WALL) -->
+            <div class="sparks-feed">
+                <div class="sparks-header">
+                    <h4>✨ Sparks Feed</h4>
+                    <span>Daily inspiration</span>
+                </div>
+                <div class="sparks-quote" id="sparksQuote">
+                    "The only way to do great work is to love what you do."
+                </div>
+                <div class="sparks-author" id="sparksAuthor">— Steve Jobs</div>
+                <div class="sparks-timer" id="sparksTimer">Refreshes in 5h 23m</div>
+            </div>
+
+            <!-- POPULAR SECTION (ACTIVE TASKS) -->
+            <div class="section-header">
+                <h3>Active Quests</h3>
+                <span class="see-more">See More →</span>
+            </div>
+
+            <div class="crystal-grid" id="crystalGrid">
+                <!-- Tasks will be inserted here -->
+            </div>
+
+            <!-- NEW QUESTS SECTION (ADD TASK) -->
+            <div class="section-header">
+                <h3>Create New Quest</h3>
+                <span class="see-more">+ Add Custom</span>
+            </div>
+
+            <div class="add-task-portal">
+                <div class="form-row">
+                    <input type="text" class="task-input" id="taskNameInput" placeholder="Enter quest name...">
+                    <input type="date" class="date-input" id="taskDateInput" value="2026-03-21">
+                </div>
+                <div class="type-selector">
+                    <button class="type-option active" data-type="urgent">🔴 URGENT</button>
+                    <button class="type-option" data-type="creative">🎵 CREATIVE</button>
+                    <button class="type-option" data-type="recurring">⚙️ RECURRING</button>
+                </div>
+                <button class="summon-btn" id="summonTaskBtn">✨ SUMMON NEW QUEST</button>
+            </div>
+
+            <!-- STATISTICS SECTION -->
+            <div class="stats-panel">
+                <div class="section-header">
+                    <h3>Your Statistics</h3>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value" id="pendingCount">0</div>
+                        <div class="stat-label">Active</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="completedCount">0</div>
+                        <div class="stat-label">Completed</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="focusHours">0</div>
+                        <div class="stat-label">Hours</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LAST COMPLETED -->
+            <div class="section-header">
+                <h3>Recently Completed</h3>
+                <span class="see-more">View Hall →</span>
+            </div>
+
+            <div class="downloads-list" id="relicsContainer">
+                <!-- Completed tasks will appear here -->
+            </div>
+        </div>
+
+        <!-- RIGHT SIDEBAR -->
+        <div class="right-sidebar">
+            <!-- BRAIN RESET WIDGET (NOW AT TOP) -->
+            <div class="brain-reset-widget" id="brainResetBtn">
+                <div class="brain-reset-header">
+                    <span class="brain-icon-large">🧠</span>
+                    <div class="brain-reset-text">
+                        <h4>Brain Reset</h4>
+                        <p>2-minute meditation</p>
+                    </div>
+                    <div class="reminder-badge" id="brainReminder">Ready</div>
+                </div>
+            </div>
+
+            <!-- CALENDAR -->
+            <div class="widget">
+                <div class="widget-title">📅 Sacred Calendar</div>
+                <div class="calendar-widget">
+                    <div class="calendar-header">
+                        <span id="currentMonthYear">March 2026</span>
+                        <div class="month-nav">
+                            <button id="prevMonthBtn">←</button>
+                            <button id="nextMonthBtn">→</button>
+                        </div>
+                    </div>
+                    <div class="weekdays">
+                        <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
+                    </div>
+                    <div class="calendar-grid" id="calendarGrid"></div>
+                </div>
+            </div>
+
+            <!-- MUSIC PLAYLIST -->
+            <div class="widget">
+                <div class="widget-title">🎵 Dimensional Sounds</div>
+                <div class="track-item" data-track="rain">
+                    <span class="track-icon">🌧️</span>
+                    <span class="track-name">Rain Palace</span>
+                    <span class="playing-indicator"></span>
+                </div>
+                <div class="track-item" data-track="waves">
+                    <span class="track-icon">🌊</span>
+                    <span class="track-name">Ocean Whispers</span>
+                    <span class="playing-indicator"></span>
+                </div>
+                <div class="track-item" data-track="forest">
+                    <span class="track-icon">🌲</span>
+                    <span class="track-name">Forest Night</span>
+                    <span class="playing-indicator"></span>
+                </div>
+                <div class="track-item" data-track="fire">
+                    <span class="track-icon">🔥</span>
+                    <span class="track-name">Crackling Fire</span>
+                    <span class="playing-indicator"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="stats.js"></script>
+    <script src="home.js"></script>
+</body>
+</html>
